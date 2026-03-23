@@ -41,7 +41,15 @@ ORDER BY event_type
 **Question 5:** What is the percentage of visits which have a purchase event?
 
 ```sql
+SELECT  100*COUNT(CASE WHEN event_type=3 THEN visit_id END)/ (SELECT COUNT(DISTINCT visit_id) FROM clique_bait.events ) :: NUMERIC AS percentage_of_visits_for_purchase_event
+
+FROM
+clique_bait.events 
+
 ```
+<img width="385" height="104" alt="image" src="https://github.com/user-attachments/assets/fda7daed-b308-4da3-b087-f9f42120cf34" />
+
+
 **Question 6:** What is the percentage of visits which view the checkout page but do not have a purchase event?
 ```sql
 ```
