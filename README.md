@@ -8,7 +8,9 @@
 **Question 1:** How many users are there?
 
 ```sql
+SELECT COUNT(DISTINCT user_id) AS user_count FROM clique_bait.users;
 ```
+<img width="244" height="106" alt="image" src="https://github.com/user-attachments/assets/65552fc1-a738-44c4-9eab-f7381a68085c" />
 
 **Question 2:** How many cookies does each user have on average?
 ```sql
@@ -20,7 +22,12 @@
 
 **Question 4:** What is the number of events for each event type?
 ```sql
+SELECT event_type, COUNT(*) as event_count FROM clique_bait.events 
+GROUP BY event_type
+ORDER BY event_type
 ```
+<img width="1015" height="282" alt="image" src="https://github.com/user-attachments/assets/97f33df7-5707-4120-b2b3-82d596b1f39e" />
+
 **Question 5:** What is the percentage of visits which have a purchase event?
 
 ```sql
