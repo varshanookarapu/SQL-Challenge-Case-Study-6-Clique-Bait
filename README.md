@@ -47,7 +47,15 @@ ORDER BY event_type
 **Question 7:** What are the top 3 pages by number of views?
 
 ```sql
+SELECT  e.page_id ,page_name ,COUNT(visit_id) visitor_count ,
+RANK() OVER( ORDER BY COUNT(visit_id) DESC) as rank
+FROM clique_bait.events e LEFT JOIN clique_bait.page_hierarchy ph ON
+e.page_id = ph.page_id
+GROUP BY e.page_id,page_name
+LIMIT 3
 ```
+<img width="1528" height="191" alt="image" src="https://github.com/user-attachments/assets/0ba58084-267b-4a63-8fd3-ede639fc9092" />
+
 **Question 8:** What is the number of views and cart adds for each product category?
 
 ```sql
