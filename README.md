@@ -14,7 +14,9 @@ SELECT COUNT(DISTINCT user_id) AS user_count FROM clique_bait.users;
 
 **Question 2:** How many cookies does each user have on average?
 ```sql
+SELECT  ROUND((COUNT(cookie_id):: NUMERIC /(SELECT COUNT(DISTINCT user_id) FROM clique_bait.users)::NUMERIC),2)   as avegrage_cookie_count FROM clique_bait.users
 ```
+<img width="286" height="112" alt="image" src="https://github.com/user-attachments/assets/6941c1d0-933c-4deb-8ba2-306531acc0c6" />
 
 **Question 3:** What is the unique number of visits by all users per month?
 
