@@ -59,7 +59,21 @@ LIMIT 3
 **Question 8:** What is the number of views and cart adds for each product category?
 
 ```sql
+SELECT  product_category,
+
+COUNT(CASE WHEN e.event_type = 1  THEN 1 END) AS page_view_count, 
+COUNT(CASE WHEN e.event_type = 2  THEN 1 END) AS cart_add_count
+
+FROM clique_bait.events e LEFT JOIN clique_bait.page_hierarchy ph 
+ON e.page_id = ph.page_id
+LEFT JOIN clique_bait.event_identifier ei 
+ON e.event_type=ei.event_type
+WHERE product_category IS NOT NULL
+GROUP BY product_category 
+
 ```
+<img width="1485" height="198" alt="image" src="https://github.com/user-attachments/assets/43526b7f-ea3e-4f9d-aa2a-4cc19b0a2104" />
+
 
 **Question 9:** What are the top 3 products by purchases?
 
