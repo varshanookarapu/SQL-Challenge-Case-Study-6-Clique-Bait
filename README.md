@@ -88,4 +88,24 @@ GROUP BY product_category
 **Question 9:** What are the top 3 products by purchases?
 
 ```sql
+--in this cte we get the distinct visit_id which led to the purchase event 
+WITH cte AS
+(
+SELECT  DISTINCT visit_id  FROM clique_bait.events WHERE event_type =3
+) 
+
+-- From the cte we are querying page name and counting the visit ids by joing the events and cte together and grouping by pagename
+
+SELECT page_name, COUNT(e.visit_id) as visit_count 
+FROM clique_bait.events e
+LEFT JOIN clique_bait.page_hierarchy ph ON
+e.page_id = ph.page_id
+LEFT JOIN cte ON
+e.visit_id = cte.visit_id
+WHERE ph.product_id IS NOT NULL
+GROUP BY page_name
+ORDER BY COUNT(e.visit_id) DESC
+LIMIT 3
 ```
+<img width="1238" height="239" alt="image" src="https://github.com/user-attachments/assets/a5e10d7a-c81f-406f-abb9-3685a1822604" />
+
