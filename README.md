@@ -17,8 +17,16 @@ SELECT COUNT(DISTINCT user_id) AS user_count FROM clique_bait.users;
 ```
 
 **Question 3:** What is the unique number of visits by all users per month?
+
 ```sql
+SELECT EXTRACT( 'month' FROM event_time) as month,TO_CHAR(event_time,'Month') as month_name, COUNT(DISTINCT visit_id)  as unique_visit_count
+FROM clique_bait.events e LEFT JOIN clique_bait.users u ON
+e.cookie_id = u.cookie_id
+GROUP BY EXTRACT( 'month' FROM event_time),TO_CHAR(event_time,'Month')
+ORDER BY EXTRACT( 'month' FROM event_time)
 ```
+<img width="1130" height="273" alt="image" src="https://github.com/user-attachments/assets/1e18f260-7921-49c1-ba06-e571330dcf70" />
+
 
 **Question 4:** What is the number of events for each event type?
 ```sql
