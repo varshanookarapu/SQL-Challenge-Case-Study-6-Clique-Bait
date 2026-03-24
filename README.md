@@ -109,3 +109,39 @@ LIMIT 3
 ```
 <img width="1238" height="239" alt="image" src="https://github.com/user-attachments/assets/a5e10d7a-c81f-406f-abb9-3685a1822604" />
 
+---
+
+## 2. Funnel Analysis
+
+```sql
+-- -- Product View Count and add to cart count 
+
+WITH table1 AS
+(
+SELECT product_id, page_name as product, visit_id,
+
+SUM(CASE WHEN event_type =1 THEN 1 ELSE 0 END) AS page_view_count ,
+SUM(CASE WHEN event_type =2 THEN 1 ELSE 0 END) AS addtocart_count
+
+FROM  clique_bait.events e LEFT JOIN
+clique_bait.page_hierarchy ph ON
+e.page_id = ph.page_id
+WHERE  product_id IS NOT NULL
+GROUP BY e.page_id,page_name , product_id,visit_id
+ORDER BY product_id
+),
+
+-- purchase events 
+
+table2 AS (
+  
+  SELECT DISTINCT visit_id FROM clique_bait.events WHERE event_type = 3
+),
+
+table3 AS
+(
+SELECT product_id,product,t1.visit_id,page_view_count,addtocart_count, CASE WHEN t1.visit_id IS NOT NULL THEN 1 ELSE 0 END as purchase_count
+FROM table1 t1 LEFT JOIN table2 t2 ON
+t1.visit_id = t2.visit_id
+)
+```
