@@ -17,9 +17,36 @@ Use the subsequent dataset to generate at least 5 insights for the Clique Bait t
 
 ---
 
+```sql
+SELECT user_id,visit_id,MIN(event_time) as visit_start_time , 
+
+SUM(CASE WHEN e.event_type = 1 THEN 1 ELSE 0 END) as page_views,
+SUM(CASE WHEN e.event_type = 2 THEN 1 ELSE 0 END) as cart_adds,
+SUM(CASE WHEN e.event_type = 3 THEN 1 ELSE 0 END) as purchase,
+campaign_name,
+SUM(CASE WHEN e.event_type=4 THEN 1 ELSE 0 END) as impression,
+SUM(CASE WHEN e.event_type=5 THEN 1 ELSE 0 END) as click,
+
+STRING_AGG(CASE WHEN  e.event_type =2 THEN page_name ELSE Null END , ' , ' ORDER BY sequence_number) AS  cart_products
+
+
+FROM clique_bait.events e LEFT JOIN clique_bait.users u ON e.cookie_id = u.cookie_id 
+LEFT JOIN clique_bait.event_identifier ei ON e.event_type=ei.event_type
+LEFT JOIN clique_bait.campaign_identifier ci ON e.event_time BETWEEN ci.start_date AND ci.end_date
+LEFT JOIN clique_bait.page_hierarchy ph ON e.page_id = ph.page_id
+GROUP BY user_id,visit_id,campaign_name
+```
+<img width="1919" height="429" alt="image" src="https://github.com/user-attachments/assets/592242fd-8b62-401d-a9a9-b7eb7ffba75a" />
+<img width="1908" height="329" alt="image" src="https://github.com/user-attachments/assets/6b36ef79-bae3-4118-affc-7452947e9a94" />
+<img width="1871" height="417" alt="image" src="https://github.com/user-attachments/assets/82e5b6cc-86a6-4412-b266-3b97bf921740" />
+
+
+---
 Some ideas you might want to investigate further include:
 
 Identifying users who have received impressions during each campaign period and comparing each metric with other users who did not have an impression event
 Does clicking on an impression lead to higher purchase rates?
 What is the uplift in purchase rate when comparing users who click on a campaign impression versus users who do not receive an impression? What if we compare them with users who just an impression but do not click?
 What metrics can you use to quantify the success or failure of each campaign compared to eachother?
+
+---
