@@ -45,6 +45,20 @@ GROUP BY user_id,visit_id,campaign_name
 Some ideas you might want to investigate further include:
 
 Identifying users who have received impressions during each campaign period and comparing each metric with other users who did not have an impression event
+
+```sql
+SELECT campaign_name, 
+COUNT(DISTINCT CASE WHEN impression =1 THEN user_id END) as users_with_impressions_count ,
+COUNT(DISTINCT CASE WHEN impression =0 THEN user_id END) as users_without_impressions_count
+FROM campaign_analysis 
+GROUP BY campaign_name
+```
+<img width="1500" height="254" alt="image" src="https://github.com/user-attachments/assets/d7f52c3b-2857-48d9-aead-c996bae82698" />
+
+
+
+
+
 Does clicking on an impression lead to higher purchase rates?
 What is the uplift in purchase rate when comparing users who click on a campaign impression versus users who do not receive an impression? What if we compare them with users who just an impression but do not click?
 What metrics can you use to quantify the success or failure of each campaign compared to eachother?
