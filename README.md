@@ -214,7 +214,12 @@ Russian Caviar was most likely to be abandoned.
 **Question 3 :** Which product had the highest view to purchase percentage?
 
 ```sql
+-- basically for each product that is viewd how many were purchased 
+SELECT product, ROUND(100*(purchases_count/page_view_count),2) as view_to_purchase_percentage FROM product_count_analysis
+ORDER BY view_to_purchase_percentage DESC
 ```
+<img width="1027" height="491" alt="image" src="https://github.com/user-attachments/assets/4c67928f-886e-4a58-adb6-7f18b92a8d84" />
+
 ---
 **Question 4 :** What is the average conversion rate from view to cart add?
 
