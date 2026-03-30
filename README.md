@@ -111,7 +111,7 @@ LIMIT 3
 
 ---
 
-## 2. Funnel Analysis
+## 3. Funnel Analysis
 ---
 Using a single SQL query - create a new output table which has the following details:
 
