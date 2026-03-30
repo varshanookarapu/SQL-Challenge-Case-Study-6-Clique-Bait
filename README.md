@@ -177,3 +177,37 @@ SELECT product_id ,product, product_category,
   GROUP BY product_category
 )
 ```
+<img width="1880" height="493" alt="image" src="https://github.com/user-attachments/assets/342a84af-19a0-4860-b8ac-298843acbec1" />
+
+<img width="1679" height="191" alt="image" src="https://github.com/user-attachments/assets/005f79b0-d35b-4921-8949-d39a3e1597fb" />
+
+---
+
+Use your 2 new output tables - answer the following questions:
+---
+**Question 1 :** Which product had the most views, cart adds and purchases?
+
+```sql
+```
+---
+
+**Question 2 :** Which product was most likely to be abandoned?
+
+```sql
+```
+---
+**Question 3 :** Which product had the highest view to purchase percentage?
+
+```sql
+```
+---
+**Question 4 :** What is the average conversion rate from view to cart add?
+
+```sql
+```
+---
+**Question 5 :** What is the average conversion rate from cart add to purchase?
+
+```sql
+```
+---
