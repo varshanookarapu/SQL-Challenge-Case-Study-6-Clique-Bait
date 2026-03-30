@@ -52,15 +52,34 @@ COUNT(DISTINCT CASE WHEN impression =1 THEN user_id END) as users_with_impressio
 COUNT(DISTINCT CASE WHEN impression =0 THEN user_id END) as users_without_impressions_count
 FROM campaign_analysis 
 GROUP BY campaign_name
+
+SELECT campaign_name, COUNT(DISTINCT user_id) as user_count, SUM(page_views) as page_view_count , SUM(cart_adds) as cart_add_count , SUM(purchase) as purchase_count
+FROM campaign_analysis 
+WHERE impression =1
+GROUP BY campaign_name
+
+
+SELECT campaign_name, COUNT(DISTINCT user_id) as user_count, SUM(page_views) as page_view_count , SUM(cart_adds) as cart_add_count , SUM(purchase) as purchase_count
+FROM campaign_analysis 
+WHERE impression =0
+GROUP BY campaign_name
 ```
 <img width="1500" height="254" alt="image" src="https://github.com/user-attachments/assets/d7f52c3b-2857-48d9-aead-c996bae82698" />
-
-
-
-
+<img width="1665" height="267" alt="image" src="https://github.com/user-attachments/assets/a2059988-4443-4e7e-b3d6-1143c90cc3e8" />
+<img width="1690" height="243" alt="image" src="https://github.com/user-attachments/assets/6c458d19-8c5f-4055-bc4a-64b3c08e4819" />
+---
 
 Does clicking on an impression lead to higher purchase rates?
+
+```sql
+```
+
 What is the uplift in purchase rate when comparing users who click on a campaign impression versus users who do not receive an impression? What if we compare them with users who just an impression but do not click?
+
+```sql
+```
 What metrics can you use to quantify the success or failure of each campaign compared to eachother?
 
+```sql
+```
 ---
