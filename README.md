@@ -224,10 +224,17 @@ ORDER BY view_to_purchase_percentage DESC
 **Question 4 :** What is the average conversion rate from view to cart add?
 
 ```sql
+SELECT ROUND(100*(SUM(addtocart_count)/SUM(page_view_count)),2) as avg_conversion_rate_from_view_to_cartadd FROM product_count_analysis
 ```
+<img width="449" height="72" alt="image" src="https://github.com/user-attachments/assets/3d7b3fa9-d650-4a4e-a260-2dd7da2f5f08" />
+
 ---
 **Question 5 :** What is the average conversion rate from cart add to purchase?
 
 ```sql
+-- for every cart add how many led to purchases , basically on an average , out of all cart adds how many were turned to purchases.
+SELECT ROUND(100*(SUM(purchases_count)/SUM(addtocart_count)),2) as avg_conversion_rate_from_cartadd_to_purchase FROM product_count_analysis
 ```
+<img width="510" height="109" alt="image" src="https://github.com/user-attachments/assets/d8237292-c0c2-4602-855b-810cf2bf0b81" />
+
 ---
