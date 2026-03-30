@@ -188,7 +188,20 @@ Use your 2 new output tables - answer the following questions:
 **Question 1 :** Which product had the most views, cart adds and purchases?
 
 ```sql
+SELECT product,page_view_count FROM product_count_analysis
+WHERE page_view_count = (SELECT MAX(page_view_count) FROM product_count_analysis ) ;
+
+SELECT product,addtocart_count FROM product_count_analysis
+WHERE addtocart_count = (SELECT MAX(addtocart_count) FROM product_count_analysis );
+
+SELECT product,abandoned_count FROM product_count_analysis
+WHERE abandoned_count = (SELECT MAX(abandoned_count) FROM product_count_analysis );
+
+SELECT product,purchases_count FROM product_count_analysis
+WHERE purchases_count = (SELECT MAX(purchases_count) FROM product_count_analysis );
 ```
+<img width="879" height="357" alt="image" src="https://github.com/user-attachments/assets/a6e1be6b-644c-4df1-a696-ea2d12cdbaf9" />
+
 ---
 
 **Question 2 :** Which product was most likely to be abandoned?
