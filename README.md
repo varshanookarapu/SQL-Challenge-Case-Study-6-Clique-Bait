@@ -202,12 +202,14 @@ WHERE purchases_count = (SELECT MAX(purchases_count) FROM product_count_analysis
 ```
 <img width="879" height="357" alt="image" src="https://github.com/user-attachments/assets/a6e1be6b-644c-4df1-a696-ea2d12cdbaf9" />
 
+Oyster had most views
+Lobster has most add to carts  and purchases
+
 ---
 
 **Question 2 :** Which product was most likely to be abandoned?
 
-```sql
-```
+Russian Caviar was most likely to be abandoned.
 ---
 **Question 3 :** Which product had the highest view to purchase percentage?
 
