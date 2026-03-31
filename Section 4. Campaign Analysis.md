@@ -72,7 +72,40 @@ GROUP BY campaign_name
 Does clicking on an impression lead to higher purchase rates?
 
 ```sql
+
+WITH campaign_analysis AS (
+
+SELECT user_id,visit_id,MIN(event_time) as visit_start_time , 
+
+SUM(CASE WHEN e.event_type = 1 THEN 1 ELSE 0 END) as page_views,
+SUM(CASE WHEN e.event_type = 2 THEN 1 ELSE 0 END) as cart_adds,
+SUM(CASE WHEN e.event_type = 3 THEN 1 ELSE 0 END) as purchase,
+campaign_name,
+SUM(CASE WHEN e.event_type=4 THEN 1 ELSE 0 END) as impression,
+SUM(CASE WHEN e.event_type=5 THEN 1 ELSE 0 END) as click,
+
+STRING_AGG(CASE WHEN  e.event_type =2 THEN page_name ELSE Null END , ' , ' ORDER BY sequence_number) AS  cart_products
+
+
+FROM clique_bait.events e LEFT JOIN clique_bait.users u ON e.cookie_id = u.cookie_id 
+LEFT JOIN clique_bait.event_identifier ei ON e.event_type=ei.event_type
+LEFT JOIN clique_bait.campaign_identifier ci ON e.event_time BETWEEN ci.start_date AND ci.end_date
+LEFT JOIN clique_bait.page_hierarchy ph ON e.page_id = ph.page_id
+GROUP BY user_id,visit_id,campaign_name
+  
+  )
+  
+SELECT campaign_name, 
+
+ROUND(100* COUNT(DISTINCT CASE WHEN click =1 AND purchase =1 THEN user_id END) / COUNT(DISTINCT CASE WHEN click =1 THEN user_id END) ,2) as purchase_rate_when_clicked,
+
+ROUND(100* COUNT(DISTINCT CASE WHEN click =0 AND purchase =1 THEN user_id END) / COUNT(DISTINCT CASE WHEN click =0 THEN user_id END) ,2) as purchase_rate_when_not_clicked
+FROM campaign_analysis
+WHERE campaign_name IS NOT NULL
+GROUP BY campaign_name
 ```
+after comparing the purchase rates when clicked vs when not clicked we see that the purchase rates are higher when clicked. 
+<img width="1530" height="249" alt="image" src="https://github.com/user-attachments/assets/8b34d4ff-d24c-482b-b1ee-02901a436b21" />
 
 What is the uplift in purchase rate when comparing users who click on a campaign impression versus users who do not receive an impression? What if we compare them with users who just an impression but do not click?
 
