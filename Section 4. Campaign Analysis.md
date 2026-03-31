@@ -128,6 +128,4 @@ GROUP BY campaign_name
 
 What metrics can you use to quantify the success or failure of each campaign compared to eachother?
 
-```sql
-```
----
+Total purchases, purchase rate and uplift
