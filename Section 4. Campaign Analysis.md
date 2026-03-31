@@ -104,7 +104,7 @@ FROM campaign_analysis
 WHERE campaign_name IS NOT NULL
 GROUP BY campaign_name
 ```
-after comparing the purchase rates when clicked vs when not clicked we see that the purchase rates are higher when clicked. 
+After comparing the purchase rates when clicked vs when not clicked we see that the purchase rates are higher when clicked. Hence clicking on an impression does lead to higher purchase rates
 <img width="1530" height="249" alt="image" src="https://github.com/user-attachments/assets/8b34d4ff-d24c-482b-b1ee-02901a436b21" />
 
 What is the uplift in purchase rate when comparing users who click on a campaign impression versus users who do not receive an impression? What if we compare them with users who just an impression but do not click?
