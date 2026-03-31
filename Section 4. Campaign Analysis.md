@@ -108,9 +108,24 @@ After comparing the purchase rates when clicked vs when not clicked we see that 
 <img width="1530" height="249" alt="image" src="https://github.com/user-attachments/assets/8b34d4ff-d24c-482b-b1ee-02901a436b21" />
 
 What is the uplift in purchase rate when comparing users who click on a campaign impression versus users who do not receive an impression? What if we compare them with users who just an impression but do not click?
-
+Uplift = the improvement in an outcome between two groups
 ```sql
+
+SELECT campaign_name, 
+
+ROUND(100* COUNT(DISTINCT CASE WHEN click =1 AND purchase =1 THEN user_id END) / COUNT(DISTINCT CASE WHEN click =1 THEN user_id END) ,2) as purchase_rate_when_clicked,
+
+ROUND(100* COUNT(DISTINCT CASE WHEN click =0 AND purchase =1 THEN user_id END) / COUNT(DISTINCT CASE WHEN click =0 THEN user_id END) ,2) as purchase_rate_when_not_clicked ,
+
+(ROUND(100* COUNT(DISTINCT CASE WHEN click =1 AND purchase =1 THEN user_id END) / COUNT(DISTINCT CASE WHEN click =1 THEN user_id END) ,2) - ROUND(100* COUNT(DISTINCT CASE WHEN click =0 AND purchase =1 THEN user_id END) / COUNT(DISTINCT CASE WHEN click =0 THEN user_id END) ,2)) as uplift
+
+
+FROM campaign_analysis
+WHERE campaign_name IS NOT NULL
+GROUP BY campaign_name
 ```
+<img width="1673" height="215" alt="image" src="https://github.com/user-attachments/assets/4e176423-48e7-4ed5-bb2e-d67f3b21ffa5" />
+
 What metrics can you use to quantify the success or failure of each campaign compared to eachother?
 
 ```sql
